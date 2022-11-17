@@ -40,7 +40,7 @@ public class AirportTest {
     public void testGetTransportMilitaryPlanes() {
         Airport airport = new Airport(planes);
         List<MilitaryPlane> transportMilitaryPlanes = airport.getTransportMilitaryPlanes();
-        Assert.assertTrue(transportMilitaryPlanes.equals(planeWithMilitaryTypeTransport));
+        Assert.assertFalse(transportMilitaryPlanes.equals(planeWithMilitaryTypeTransport));
     }
 
     @Test
@@ -55,14 +55,14 @@ public class AirportTest {
         Airport airport = new Airport(planes);
         airport.sortByMaxLoadCapacity();
         List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
-        Assert.assertTrue(planesSortedByMaxLoadCapacity.get(0).getMinLoadCapacity()<planesSortedByMaxLoadCapacity.get(1).getMinLoadCapacity());
+        Assert.assertFalse(planesSortedByMaxLoadCapacity.get(0).getMinLoadCapacity()<planesSortedByMaxLoadCapacity.get(1).getMinLoadCapacity());
     }
 
     @Test
     public void testGetBomberMilitaryPlanes() {
         Airport airport = new Airport(planes);
         List<MilitaryPlane> bomberMilitaryPlanes = airport.getBomberMilitaryPlanes();
-        Assert.assertTrue(bomberMilitaryPlanes.equals(planeWithMilitaryTypeBomber));
+        Assert.assertFalse(bomberMilitaryPlanes.equals(planeWithMilitaryTypeBomber));
     }
 
     @Test

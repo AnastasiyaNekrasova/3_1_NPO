@@ -12,9 +12,6 @@ import java.util.*;
 
 public class Airport {
     private List<? extends Plane> planes;
-
-
-
     public List<PassengerPlane> getPassengerPlane() {
         List<? extends Plane> planes = this.planes;
         List<PassengerPlane> passengerPlanes = new ArrayList<>();
@@ -69,7 +66,6 @@ public class Airport {
             }
         }
         return bomberMilitaryPlanes;
-
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes() {

@@ -1,6 +1,7 @@
 package com.bstu.nekrasova.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,10 +22,20 @@ public class ProductPage extends AbstractPage {
     }
 
     public ProductPage addToBag() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@class=\"gl-label size___2Jnft\"]")));
-        driver.findElement(By.xpath("//*[@class=\"gl-label size___2Jnft\"]")).click();
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class=\"size-selector___2kfnl\"] //child::button")));
+        driver.findElement(By.xpath("//div[@class=\"size-selector___2kfnl\"] //child::button")).click();
         driver.findElement(By.xpath("//*[@data-auto-id=\"add-to-bag\"]")).click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

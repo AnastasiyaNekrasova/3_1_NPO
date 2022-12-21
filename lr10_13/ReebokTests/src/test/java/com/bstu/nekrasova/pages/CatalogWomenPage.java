@@ -1,8 +1,12 @@
 package com.bstu.nekrasova.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CatalogWomenPage extends AbstractPage {
     private final String BASE_URL = "https://www.reebok.com/us/women";
+    Actions action = new Actions(driver);
+    private final Logger logger = LogManager.getRootLogger();
 
     public CatalogWomenPage(WebDriver driver) {
         super(driver);
@@ -23,11 +29,17 @@ public class CatalogWomenPage extends AbstractPage {
     }
 
     public ProductPage openProductPage(){
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
-        jse.executeScript("window.scrollBy(0,10000)", "");
+        WebElement logo = driver.findElement(By.xpath("//*[@data-auto-id=\"logo\"]"));
+        action.moveToElement(logo);
+        action.perform();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@src=\"https://assets.reebok.com/images/w_600,f_auto,q_auto/5fd280abbb834ec7a5fbae7000968df9_9366/LX2200_Shoes_White_GW7201_01_standard.jpg\"]")));
-        driver.findElement(By.xpath("//*[@src=\"https://assets.reebok.com/images/w_600,f_auto,q_auto/5fd280abbb834ec7a5fbae7000968df9_9366/LX2200_Shoes_White_GW7201_01_standard.jpg\"]")).click();
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class=\"grid-item\"]")));
+        driver.findElement(By.xpath("//div[@class=\"grid-item\"]")).click();
         return new ProductPage(driver);
     }
 
@@ -37,4 +49,15 @@ public class CatalogWomenPage extends AbstractPage {
         return new LoginPage(driver);
     }
 
+    public CatalogWomenPage fulltextSearch(){
+        driver.findElement(By.xpath("//*[@name=\"q\"]")).click();
+        driver.findElement(By.xpath("//*[@name=\"q\"]")).sendKeys("op");
+        logger.info("Successful search");
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
 }

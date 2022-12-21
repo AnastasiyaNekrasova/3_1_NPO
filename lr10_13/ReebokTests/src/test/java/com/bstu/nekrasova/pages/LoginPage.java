@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends AbstractPage {
     private final String BASE_URL = "https://www.reebok.com/us/account-login";
-    Actions act = new Actions(driver);
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -44,7 +43,7 @@ public class LoginPage extends AbstractPage {
         WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-password\"]"));
         passwordField.sendKeys("Pt6441774!");
         WebElement ele = driver.findElement(By.xpath("//*[@data-auto-id=\"login-form-login\"]"));
-        act.doubleClick(ele).perform();
+        ele.click();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

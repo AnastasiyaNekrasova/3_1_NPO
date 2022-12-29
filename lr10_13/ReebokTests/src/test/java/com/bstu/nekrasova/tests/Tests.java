@@ -30,7 +30,9 @@ public class Tests extends CommonConditions {
     public void shopLocator()
     {
         assertThat(new MainPage(driver)
-                .openPage()
+                .openLoginPage()
+                .logIn()
+                .openMainPage()
                 .openShopLocator()
                 .findStore()).isNotNull();
     }
@@ -39,37 +41,57 @@ public class Tests extends CommonConditions {
     public void BuySoldOut()
     {
         assertThat(new MainPage(driver)
-                .openPage()).isNotNull();
+                .openPage()
+                .openWomenPage()
+                .openProductPage()
+                .addSoldOutToBag()).isNotNull();
     }
     @Test
     public void AddComment()
     {
-        assertThat(new MainPage(driver)
-                .openPage()).isNotNull();
+        new MainPage(driver)
+                .openLoginPage()
+                .logIn()
+                .openWomenPage()
+                .openProductPage()
+                .writeReview()
+                .submitReview();
     }
     @Test
     public void ForumLookUp()
     {
         assertThat(new MainPage(driver)
-                .openPage()).isNotNull();
+                .openLoginPage()
+                .logIn()
+                .openMainPage()
+                .openPage()
+                .openForumPage()
+                .checkForum()).isNotNull();
     }
     @Test
     public void SortTest()
     {
         assertThat(new MainPage(driver)
-                .openPage()).isNotNull();
+                .openPage()
+                .openWomenPage()
+                .chooseSort()).isNotNull();
     }
     @Test
     public void FilterTest()
     {
         assertThat(new MainPage(driver)
-                .openPage()).isNotNull();
+                .openPage()
+                .openWomenPage()
+                .chooseFilter()).isNotNull();
     }
     @Test
-    public void CheckOrderStatus()
+    public void OrderTracker()
     {
         assertThat(new MainPage(driver)
-                .openPage()).isNotNull();
+                .openLoginPage()
+                .logIn()
+                .openOrderTracker()
+                .setOrderInfo()).isNotNull();
     }
     @Test
     public void OrderQuantityError()

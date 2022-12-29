@@ -1,6 +1,7 @@
 package com.bstu.nekrasova.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -23,6 +24,20 @@ public class LoginPage extends AbstractPage {
         return this;
     }
 
+    public LoginPage logIn() {
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"login-email\"]")));
+        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-email\"]"));
+        loginField.sendKeys("afierycat@gmail.com");
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"login-password\"]")));
+        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-password\"]"));
+        passwordField.sendKeys("Pt6441774!");
+        WebElement ele = driver.findElement(By.xpath("//*[@data-auto-id=\"login-form-login\"]"));
+        ele.click();
+        return this;
+    }
+
     public MainPage openMainPage()
     {
         driver.findElement(By.xpath("//*[@data-auto-id=\"logo\"]")).click();
@@ -35,21 +50,25 @@ public class LoginPage extends AbstractPage {
         return new CatalogWomenPage(driver);
     }
 
-    public LoginPage logIn() {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"login-email\"]")));
-        WebElement loginField = driver.findElement(By.xpath("//*[@id=\"login-email\"]"));
-        loginField.sendKeys("afierycat@gmail.com");
-        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"login-password\"]"));
-        passwordField.sendKeys("Pt6441774!");
-        WebElement ele = driver.findElement(By.xpath("//*[@data-auto-id=\"login-form-login\"]"));
-        ele.click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return this;
+    public ForumPage openForumPage()
+    {
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0,10000)", "");
+        driver.findElement(By.xpath("//*[@manual_cm_sp=\"footer-_-support-_-faqs\"]")).click();
+        return new ForumPage(driver);
+    }
+
+    public ShopLocatorPage openShopLocator(){
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0,10000)", "");
+        driver.findElement(By.xpath("//*[@manual_cm_sp=\"footer-_-support-_-store locator\"]")).click();
+        return new ShopLocatorPage(driver);
+    }
+
+    public OrderTracker openOrderTracker()
+    {
+        driver.findElement(By.xpath("//*[@data-auto-id=\"header-order-tracker-link\"]")).click();
+        return new OrderTracker(driver);
     }
 
 }

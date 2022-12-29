@@ -5,6 +5,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage extends AbstractPage
 {
@@ -36,10 +38,19 @@ public class MainPage extends AbstractPage
         return new LoginPage(driver);
     }
 
+    public ForumPage openForumPage()
+    {
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0,10000)", "");
+        driver.findElement(By.xpath("//*[@manual_cm_sp=\"footer-_-support-_-faqs\"]")).click();
+        return new ForumPage(driver);
+    }
+
     public ShopLocatorPage openShopLocator(){
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("window.scrollBy(0,10000)", "");
         driver.findElement(By.xpath("//*[@manual_cm_sp=\"footer-_-support-_-store locator\"]")).click();
         return new ShopLocatorPage(driver);
     }
+
 }

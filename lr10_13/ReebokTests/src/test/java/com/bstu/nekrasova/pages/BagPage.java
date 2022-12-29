@@ -26,7 +26,6 @@ public class BagPage extends AbstractPage {
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@class=\"gl-dropdown-custom__list\"]")));
         WebElement quantity = driver.findElement(By.xpath("//*[@class=\"gl-dropdown-custom__list\"]"));
-
         return this;
     }
 

@@ -32,11 +32,6 @@ public class CatalogWomenPage extends AbstractPage {
         WebElement logo = driver.findElement(By.xpath("//*[@data-auto-id=\"logo\"]"));
         action.moveToElement(logo);
         action.perform();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class=\"grid-item\"]")));
         driver.findElement(By.xpath("//div[@class=\"grid-item\"]")).click();
@@ -53,11 +48,22 @@ public class CatalogWomenPage extends AbstractPage {
         driver.findElement(By.xpath("//*[@name=\"q\"]")).click();
         driver.findElement(By.xpath("//*[@name=\"q\"]")).sendKeys("op");
         logger.info("Successful search");
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        return this;
+    }
+
+    public CatalogWomenPage chooseFilter(){
+        driver.findElement(By.xpath("//*[@data-auto-id=\"filter-panel-cta-btn\"]")).click();
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class=\"filter-value___CaXnS gl-body--s\"]")));
+        driver.findElement(By.xpath("//*[@class=\"filter-value___CaXnS gl-body--s\"]")).click();
+        return this;
+    }
+
+    public CatalogWomenPage chooseSort(){
+        driver.findElement(By.xpath("//*[@data-auto-id=\"filter-panel-cta-btn\"]")).click();
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class=\"sorting_option___1AgyS\"][text()=\"Newest\"]")));
+        driver.findElement(By.xpath("//*[@class=\"sorting_option___1AgyS\"][text()=\"Newest\"]")).click();
         return this;
     }
 }
